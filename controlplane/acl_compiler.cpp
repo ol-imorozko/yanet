@@ -445,9 +445,23 @@ void compiler_t::transport_compile()
 
 void compiler_t::transport_table_compile()
 {
+	auto start = std::chrono::high_resolution_clock::now();
 	transport_table.prepare();
+	auto end = std::chrono::high_resolution_clock::now();
+	double ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: transport_table_compile: outer step: prepare: %f ms\n", ms);
+
+	start = std::chrono::high_resolution_clock::now();
 	transport_table.compile();
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: transport_table_compile: outer step: compile: %f ms\n", ms);
+
+	start = std::chrono::high_resolution_clock::now();
 	transport_table.populate();
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: transport_table_compile: outer step: populate: %f ms\n", ms);
 
 	size_t size = 0;
 	size_t group_ids = 0;

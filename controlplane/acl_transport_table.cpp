@@ -82,10 +82,29 @@ void transport_table::thread_t::start()
 	thread = std::thread([this]() {
 		try
 		{
+			auto start = std::chrono::high_resolution_clock::now();
 			prepare();
+			auto end = std::chrono::high_resolution_clock::now();
+			double ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+			YANET_LOG_INFO("acl::compile: transport_table_compile: inner step in thread %d: prepare: %f ms\n", thread_id, ms);
+
+			start = std::chrono::high_resolution_clock::now();
 			compile();
+			end = std::chrono::high_resolution_clock::now();
+			ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+			YANET_LOG_INFO("acl::compile: transport_table_compile: inner step in thread %d: compile: %f ms\n", thread_id, ms);
+
+			start = std::chrono::high_resolution_clock::now();
 			populate();
+			end = std::chrono::high_resolution_clock::now();
+			ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+			YANET_LOG_INFO("acl::compile: transport_table_compile: inner step in thread %d: populate: %f ms\n", thread_id, ms);
+
+			start = std::chrono::high_resolution_clock::now();
 			result();
+			end = std::chrono::high_resolution_clock::now();
+			ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+			YANET_LOG_INFO("acl::compile: transport_table_compile: inner step in thread %d: result: %f ms\n", thread_id, ms);
 		}
 		catch (...)
 		{
