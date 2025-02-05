@@ -1,4 +1,5 @@
 #include "acl_compiler.h"
+#include <chrono>
 #include "acl_filter.h"
 
 using namespace acl;
@@ -41,17 +42,29 @@ void compiler_t::compile(const std::vector<rule_t>& unwind_rules,
 	YANET_LOG_INFO("acl::compile: network_flags_compile\n");
 	network_flags_compile();
 
-	YANET_LOG_INFO("acl::compile: transport_compile\n");
+	auto start = std::chrono::high_resolution_clock::now();
 	transport_compile();
+	auto end = std::chrono::high_resolution_clock::now();
+	double ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: transport_compile: %f ms\n", ms);
 
-	YANET_LOG_INFO("acl::compile: transport_table_compile\n");
+	start = std::chrono::high_resolution_clock::now();
 	transport_table_compile();
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: transport_table_compile: %f ms\n", ms);
 
-	YANET_LOG_INFO("acl::compile: total_table_compile\n");
+	start = std::chrono::high_resolution_clock::now();
 	total_table_compile();
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: total_table_compile: %f ms\n", ms);
 
-	YANET_LOG_INFO("acl::compile: value_compile\n");
+	start = std::chrono::high_resolution_clock::now();
 	value_compile();
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: value_compile: %f ms\n", ms);
 
 	YANET_LOG_INFO("acl::compile: result\n");
 
