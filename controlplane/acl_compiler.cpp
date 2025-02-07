@@ -420,8 +420,13 @@ void compiler_t::network_flags_compile()
 
 void compiler_t::transport_compile()
 {
+	auto start = std::chrono::high_resolution_clock::now();
 	transport.prepare();
+	auto end = std::chrono::high_resolution_clock::now();
+	double ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: transport: prepare: %f ms\n", ms);
 
+	start = std::chrono::high_resolution_clock::now();
 	std::set<unsigned int> transport_filters;
 	for (const auto& [network_table_group_id, network_table_filter_ids] : network_table.group_id_filter_ids)
 	{
@@ -437,17 +442,33 @@ void compiler_t::transport_compile()
 
 		transport.emplace_variation(network_table_group_id, transport_filters);
 	}
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: transport: variations: %f ms\n", ms);
 
 	YANET_LOG_INFO("acl::compile: variations: %lu\n",
 	               transport.variation.size());
 
+	start = std::chrono::high_resolution_clock::now();
 	transport.distribute();
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: transport: distribute: %f ms\n", ms);
 
 	YANET_LOG_INFO("acl::compile: layers: %lu\n",
 	               transport.layers.size());
 
+	start = std::chrono::high_resolution_clock::now();
 	transport.compile();
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: transport: compile: %f ms\n", ms);
+
+	start = std::chrono::high_resolution_clock::now();
 	transport.populate();
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: transport: populate: %f ms\n", ms);
 
 	/// remap group ids after distribute
 	network_table.remap();
