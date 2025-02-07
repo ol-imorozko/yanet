@@ -391,8 +391,18 @@ void compiler_t::network_table_compile()
 	YANET_LOG_INFO("acl::compile: size: %lu\n",
 	               network_table.values.size());
 
+
+	auto start = std::chrono::high_resolution_clock::now();
 	network_table.compile();
+	auto end = std::chrono::high_resolution_clock::now();
+	double ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: network_table_compile: outer step: compile: %f ms\n", ms);
+
+	start = std::chrono::high_resolution_clock::now();
 	network_table.populate();
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: network_table_compile: outer step: populate: %f ms\n", ms);
 
 	YANET_LOG_INFO("acl::compile: group_ids: %lu\n",
 	               network_table.group_id_filter_ids.size());
