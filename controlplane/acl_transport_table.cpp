@@ -234,7 +234,14 @@ void transport_table::thread_t::compile()
 				for (const auto network_flags_group_id : network_flags_group_ids)
 				{
 					table_indexes[0] = network_flags_group_id - 1; /// id always start with 1
-					table_insert(layer, table_indexes, network_table_group_ids_curr);
+					for (unsigned int network_table_group_id : network_table_group_ids_curr)
+					{
+						table_indexes[5] = layer.lookup_remap_map(
+						        network_table_group_id,
+						        transport_table->compiler->transport_layers_shift);
+
+						table_insert(layer, table_indexes);
+					}
 				}
 			}
 
@@ -256,7 +263,14 @@ void transport_table::thread_t::compile()
 							for (const auto network_flags_group_id : network_flags_group_ids)
 							{
 								table_indexes[0] = network_flags_group_id - 1; /// id always start with 1
-								table_insert(layer, table_indexes, network_table_group_ids_curr);
+								for (unsigned int network_table_group_id : network_table_group_ids_curr)
+								{
+									table_indexes[5] = layer.lookup_remap_map(
+									        network_table_group_id,
+									        transport_table->compiler->transport_layers_shift);
+
+									table_insert(layer, table_indexes);
+								}
 							}
 						}
 					}
@@ -277,7 +291,14 @@ void transport_table::thread_t::compile()
 						for (const auto network_flags_group_id : network_flags_group_ids)
 						{
 							table_indexes[0] = network_flags_group_id - 1; /// id always start with 1
-							table_insert(layer, table_indexes, network_table_group_ids_curr);
+							for (unsigned int network_table_group_id : network_table_group_ids_curr)
+							{
+								table_indexes[5] = layer.lookup_remap_map(
+								        network_table_group_id,
+								        transport_table->compiler->transport_layers_shift);
+
+								table_insert(layer, table_indexes);
+							}
 						}
 					}
 				}
@@ -297,7 +318,14 @@ void transport_table::thread_t::compile()
 						for (const auto network_flags_group_id : network_flags_group_ids)
 						{
 							table_indexes[0] = network_flags_group_id - 1; /// id always start with 1
-							table_insert(layer, table_indexes, network_table_group_ids_curr);
+							for (unsigned int network_table_group_id : network_table_group_ids_curr)
+							{
+								table_indexes[5] = layer.lookup_remap_map(
+								        network_table_group_id,
+								        transport_table->compiler->transport_layers_shift);
+
+								table_insert(layer, table_indexes);
+							}
 						}
 					}
 				}
@@ -317,7 +345,14 @@ void transport_table::thread_t::compile()
 						for (const auto network_flags_group_id : network_flags_group_ids)
 						{
 							table_indexes[0] = network_flags_group_id - 1; /// id always start with 1
-							table_insert(layer, table_indexes, network_table_group_ids_curr);
+							for (unsigned int network_table_group_id : network_table_group_ids_curr)
+							{
+								table_indexes[5] = layer.lookup_remap_map(
+								        network_table_group_id,
+								        transport_table->compiler->transport_layers_shift);
+
+								table_insert(layer, table_indexes);
+							}
 						}
 					}
 				}
@@ -401,7 +436,14 @@ void transport_table::thread_t::populate()
 				for (const auto network_flags_group_id : network_flags_group_ids)
 				{
 					table_indexes[0] = network_flags_group_id - 1; /// id always start with 1
-					table_get(layer, table_indexes, network_table_group_ids_curr);
+					for (unsigned int network_table_group_id : network_table_group_ids_curr)
+					{
+						table_indexes[5] = layer.lookup_remap_map(
+						        network_table_group_id,
+						        transport_table->compiler->transport_layers_shift);
+
+						table_get(layer, table_indexes);
+					}
 				}
 			}
 
@@ -423,7 +465,14 @@ void transport_table::thread_t::populate()
 							for (const auto network_flags_group_id : network_flags_group_ids)
 							{
 								table_indexes[0] = network_flags_group_id - 1; /// id always start with 1
-								table_get(layer, table_indexes, network_table_group_ids_curr);
+								for (unsigned int network_table_group_id : network_table_group_ids_curr)
+								{
+									table_indexes[5] = layer.lookup_remap_map(
+									        network_table_group_id,
+									        transport_table->compiler->transport_layers_shift);
+
+									table_get(layer, table_indexes);
+								}
 							}
 						}
 					}
@@ -444,7 +493,14 @@ void transport_table::thread_t::populate()
 						for (const auto network_flags_group_id : network_flags_group_ids)
 						{
 							table_indexes[0] = network_flags_group_id - 1; /// id always start with 1
-							table_get(layer, table_indexes, network_table_group_ids_curr);
+							for (unsigned int network_table_group_id : network_table_group_ids_curr)
+							{
+								table_indexes[5] = layer.lookup_remap_map(
+								        network_table_group_id,
+								        transport_table->compiler->transport_layers_shift);
+
+								table_get(layer, table_indexes);
+							}
 						}
 					}
 				}
@@ -464,7 +520,14 @@ void transport_table::thread_t::populate()
 						for (const auto network_flags_group_id : network_flags_group_ids)
 						{
 							table_indexes[0] = network_flags_group_id - 1; /// id always start with 1
-							table_get(layer, table_indexes, network_table_group_ids_curr);
+							for (unsigned int network_table_group_id : network_table_group_ids_curr)
+							{
+								table_indexes[5] = layer.lookup_remap_map(
+								        network_table_group_id,
+								        transport_table->compiler->transport_layers_shift);
+
+								table_get(layer, table_indexes);
+							}
 						}
 					}
 				}
@@ -484,7 +547,14 @@ void transport_table::thread_t::populate()
 						for (const auto network_flags_group_id : network_flags_group_ids)
 						{
 							table_indexes[0] = network_flags_group_id - 1; /// id always start with 1
-							table_get(layer, table_indexes, network_table_group_ids_curr);
+							for (unsigned int network_table_group_id : network_table_group_ids_curr)
+							{
+								table_indexes[5] = layer.lookup_remap_map(
+								        network_table_group_id,
+								        transport_table->compiler->transport_layers_shift);
+
+								table_get(layer, table_indexes);
+							}
 						}
 					}
 				}
@@ -529,42 +599,30 @@ void transport_table::thread_t::result()
 }
 
 void transport_table::thread_t::table_insert(transport_table::layer_t& layer,
-                                             DimensionArray& keys,
-                                             const std::vector<unsigned int>& network_table_group_ids)
+                                             const DimensionArray& keys)
 {
-	for (unsigned int network_table_group_id : network_table_group_ids)
+	auto& value = layer.table(keys);
+
+	if (value >= initial_group_id)
+		return;
+
+	auto it = remap_group_ids.find(value);
+	if (it == remap_group_ids.end()) ///< check: don't override self rule
 	{
-		keys[5] = layer.lookup_remap_map(network_table_group_id, transport_table->compiler->transport_layers_shift);
-
-		auto& value = layer.table(keys);
-
-		if (value >= initial_group_id)
-			continue;
-
-		auto it = remap_group_ids.find(value);
-		if (it == remap_group_ids.end()) ///< check: don't override self rule
-		{
-			remap_group_ids.insert_unique(value, group_id);
-			value = group_id;
-			group_id += threads_count;
-		}
-		else
-		{
-			value = it->second;
-		}
+		remap_group_ids.insert_unique(value, group_id);
+		value = group_id;
+		group_id += threads_count;
+	}
+	else
+	{
+		value = it->second;
 	}
 }
 
-void transport_table::thread_t::table_get(transport_table::layer_t& layer,
-                                          DimensionArray& keys,
-                                          const std::vector<unsigned int>& network_table_group_ids)
+void transport_table::thread_t::table_get(const transport_table::layer_t& layer,
+                                          const DimensionArray& keys)
 {
-	for (const auto network_table_group_id : network_table_group_ids)
-	{
-		keys[5] = layer.lookup_remap_map(network_table_group_id, transport_table->compiler->transport_layers_shift);
+	auto value = layer.table(keys);
 
-		auto value = layer.table(keys);
-
-		bitmask.emplace(value);
-	}
+	bitmask.emplace(value);
 }
