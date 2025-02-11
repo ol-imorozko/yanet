@@ -470,8 +470,12 @@ void compiler_t::transport_compile()
 	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
 	YANET_LOG_INFO("acl::compile: transport: populate: %f ms\n", ms);
 
+	start = std::chrono::high_resolution_clock::now();
 	/// remap group ids after distribute
 	network_table.remap();
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: transport: remap network table: %f ms\n", ms);
 }
 
 void compiler_t::transport_table_compile()
