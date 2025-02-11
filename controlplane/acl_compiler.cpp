@@ -345,15 +345,24 @@ void compiler_t::collect(const std::vector<rule_t>& unwind_rules)
 
 void compiler_t::network_compile()
 {
+	auto start = std::chrono::high_resolution_clock::now();
 	network_ipv4_source.prepare();
 	network_ipv4_destination.prepare();
 	network_ipv6_source.prepare();
 	network_ipv6_destination.prepare();
+	auto end = std::chrono::high_resolution_clock::now();
+	double ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: network: outer step: prepare: %f ms\n", ms);
 
+
+	start = std::chrono::high_resolution_clock::now();
 	network_ipv4_source.compile();
 	network_ipv4_destination.compile();
 	network_ipv6_source.compile();
 	network_ipv6_destination.compile();
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: network: outer step: compile: %f ms\n", ms);
 
 	YANET_LOG_INFO("acl::compile: extended_chunks: %lu, %lu, %lu, %lu\n",
 	               network_ipv4_source.tree.chunks.size(),
@@ -361,10 +370,14 @@ void compiler_t::network_compile()
 	               network_ipv6_source.tree.chunks.size(),
 	               network_ipv6_destination.tree.chunks.size());
 
+	start = std::chrono::high_resolution_clock::now();
 	network_ipv4_source.populate();
 	network_ipv4_destination.populate();
 	network_ipv6_source.populate();
 	network_ipv6_destination.populate();
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: network: outer step: populate: %f ms\n", ms);
 
 	YANET_LOG_INFO("acl::compile: group_ids: %lu, %lu, %lu, %lu\n",
 	               network_ipv4_source.reverse_map.size(),
@@ -372,10 +385,14 @@ void compiler_t::network_compile()
 	               network_ipv6_source.reverse_map.size(),
 	               network_ipv6_destination.reverse_map.size());
 
+	start = std::chrono::high_resolution_clock::now();
 	network_ipv4_source.remap(source_group_id);
 	network_ipv4_destination.remap(destination_group_id);
 	network_ipv6_source.remap(source_group_id);
 	network_ipv6_destination.remap(destination_group_id);
+	end = std::chrono::high_resolution_clock::now();
+	ms = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() / 1000.0;
+	YANET_LOG_INFO("acl::compile: network: outer step: remap: %f ms\n", ms);
 
 	YANET_LOG_INFO("acl::compile: collisions: %u, %u, %u, %u\n",
 	               network_ipv4_source.collisions,
