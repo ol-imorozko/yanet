@@ -55,8 +55,9 @@ libdpdk = subproject('dpdk', default_options: [
 libjson = subproject('json')
 
 if custom_hash_structures_option
-    # This is header-only library without meson.build
+    # These are header-only libraries without their own meson.build
     emhash_dep = declare_dependency(include_directories: 'subprojects/emhash')
+    ankerl_dep = declare_dependency(include_directories: 'subprojects/ankerl/include/ankerl')
 endif
 
 if target_option.contains('buildenv')
