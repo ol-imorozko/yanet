@@ -13,6 +13,7 @@ arch_option = get_option('arch')
 yanet_config_option = get_option('yanet_config')
 bindir_option = get_option('bindir')
 datadir_option = get_option('datadir')
+custom_hash_structures_option = get_option('custom_hash_structures')
 
 compiler_args = []
 
@@ -32,6 +33,10 @@ if get_option('enable_acl_debug')
     compiler_args += '-DACL_DEBUG'
 endif
 
+if custom_hash_structures_option
+    compiler_args += '-DCUSTOM_HASH_STRUCTURES'
+endif
+
 # Add all global arguments at once
 add_global_arguments(compiler_args, language: 'cpp')
 
@@ -48,6 +53,11 @@ libdpdk = subproject('dpdk', default_options: [
     'default_library=static', 'tests=false' ] )
 
 libjson = subproject('json')
+
+if custom_hash_structures_option
+    # This is header-only library without meson.build
+    emhash_dep = declare_dependency(include_directories: 'subprojects/emhash')
+endif
 
 if target_option.contains('buildenv')
     subdir('libprotobuf')
