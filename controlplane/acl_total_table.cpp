@@ -65,7 +65,11 @@ void total_table_t::compile()
 				{
 					// If there is no such key in table, then we save [key, group_id]
 					// without any additional checks.
+#if defined(CUSTOM_HASH_STRUCTURES)
 					table.insert_unique(key, group_id);
+#else
+					table.emplace(key, group_id);
+#endif
 					used = true;
 				}
 				else
