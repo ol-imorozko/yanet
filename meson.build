@@ -4,7 +4,7 @@ project('yanet', 'cpp',
                           'buildtype=release',
                           'warning_level=2',
                           'werror=true',
-                          'b_lto=true'])
+                          'b_lto=false'])
 
 yanet_rootdir = include_directories('.')
 
@@ -45,6 +45,8 @@ add_global_arguments(compiler_args, language: 'cpp')
 add_global_arguments('-DGOOGLE_PROTOBUF_NO_RTTI', language: 'cpp')
 
 add_project_link_arguments('-lnuma', language : 'cpp')
+
+add_project_link_arguments('-fuse-ld=lld', language : 'cpp')
 
 add_global_arguments('-Wno-unused-parameter', language: 'cpp')
 
