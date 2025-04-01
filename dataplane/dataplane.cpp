@@ -1681,6 +1681,8 @@ eResult cDataPlane::allocateSharedMemory()
 	return eResult::success;
 }
 
+// TODO: делается ли это каждый раз на новом тесте? Думаю нет. Т.е по идее объёкты не уничтожаются.
+//  А как тогда оно работает... не понял.
 /// split memory per worker
 eResult cDataPlane::splitSharedMemoryPerWorkers()
 {

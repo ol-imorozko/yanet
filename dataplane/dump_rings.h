@@ -96,7 +96,7 @@ class RingPcap : public RingBase
 	void Clean() override;
 
 public:
-	RingPcap(void* memory, size_t max_pkt_size, size_t pkt_count);
+	RingPcap(void* memory, size_t max_pkt_size, size_t pkt_count, bool autotest);
 
 	~RingPcap() override = default;
 
@@ -111,6 +111,6 @@ public:
 
 size_t GetCapacity(const Config& config);
 
-std::unique_ptr<RingBase> CreateSharedMemoryDumpRing(const Config& config, void* memory);
+std::unique_ptr<RingBase> CreateSharedMemoryDumpRing(const Config& config, void* memory, bool autotest = false);
 
 } // namespace dumprings

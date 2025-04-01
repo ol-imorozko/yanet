@@ -10,6 +10,7 @@
 #include <rte_malloc.h>
 
 #include "common.h"
+#include "common/define.h"
 #include "common/version.h"
 #include "dataplane.h"
 #include "dataplane/worker_gc.h"

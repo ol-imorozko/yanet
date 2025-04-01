@@ -189,7 +189,7 @@ eResult tAutotest::initSharedMemory()
 	{
 		void* memaddr = utils::ShiftBuffer(shm_by_key[ipc_key], offset);
 
-		dumpRings[ring_name] = dumprings::CreateSharedMemoryDumpRing(dump_config, memaddr);
+		dumpRings[ring_name] = dumprings::CreateSharedMemoryDumpRing(dump_config, memaddr, true);
 		dumpRingsDesc[ring_name] = {dump_tag, core_id, socket_id};
 	}
 
