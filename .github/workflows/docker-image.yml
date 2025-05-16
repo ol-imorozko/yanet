@@ -106,6 +106,8 @@ jobs:
           name: target_autotest
       - name: bug https://github.com/actions/upload-artifact/issues/38
         run: tar -C /usr -xf target_autotest.tar.gz
+      - name: Install tcpdump
+        run: apt-get update && apt-get install -y tcpdump
       - run: yanet-autotest-run.py autotest/units/001_one_port
 
   deploy:
